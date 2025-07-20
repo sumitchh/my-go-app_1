@@ -39,14 +39,11 @@ jobs:
         name: my-go-app-binary
         path: ./my-go-app
 
-    - name: Install SonarScanner
+    - name: Install and Run SonarScanner
       run: |
         wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
         unzip sonar-scanner-cli-5.0.1.3006-linux.zip
         export PATH=$PATH:$(pwd)/sonar-scanner-5.0.1.3006/bin
-
-    - name: Run SonarScanner
-      run: |
         sonar-scanner -Dsonar.login=${{ secrets.SONAR_TOKEN }} -X -Dsonar.verbose=true
 
   security-scan:
