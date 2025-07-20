@@ -46,7 +46,7 @@ jobs:
         chmod +x sonar-scanner-5.0.1.3006/bin/sonar-scanner
         ./sonar-scanner-5.0.1.3006/bin/sonar-scanner -Dsonar.login=${{ secrets.SONAR_TOKEN }} -X -Dsonar.verbose=true
 
-security-scan:
+  security-scan:
     runs-on: ubuntu-latest
 
     steps:
