@@ -7,8 +7,9 @@ on:
     branches: [main]
 
 jobs:
-  build-test:
+  build-test-sonarcloud:
     runs-on: ubuntu-latest
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -19,7 +20,7 @@ jobs:
         go-version: '1.21'
 
     - name: Build
-      run: go build ./...
+      run: go build -o my-go-app ./...
 
     - name: Run Unit Tests & Coverage
       run: |
@@ -37,17 +38,16 @@ jobs:
       with:
         name: my-go-app-binary
         path: ./my-go-app
-  
-    - name: SonarQube Analysis
-      run: |
-        wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006.zip
-        unzip sonar-scanner-cli-5.0.1.3006.zip
-        export PATH=$PATH:$(pwd)/sonar-scanner-5.0.1.3006/bin
-        sonar-scanner \
+
+    - name: SonarCloud Analysis
+      uses: SonarSource/sonarcloud-github-action@v2
+      with:
+        args: >
           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
   security-scan:
     runs-on: ubuntu-latest
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
