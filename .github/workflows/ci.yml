@@ -42,8 +42,9 @@ jobs:
     - name: SonarCloud Analysis
       uses: SonarSource/sonarcloud-github-action@v2
       with:
-        args: >
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        organization: sumitchh
+        projectKey: sumitchh_my-go-app_1
+        token: ${{ secrets.SONAR_TOKEN }}
 
   security-scan:
     runs-on: ubuntu-latest
